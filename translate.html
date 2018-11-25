@@ -1,0 +1,493 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Convo-OCR</title>
+    
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,600&amp;subset=latin-ext" rel="stylesheet">
+    
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/font-awesome.min.css" rel="stylesheet">
+    <link href="style.css" rel="stylesheet">
+    
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+        <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+</head>
+
+<script src="jquery-3.1.1.min.js"></script>
+
+<style type="text/css">
+body{
+	background:#778899;
+}
+.form-style-10{
+	max-width:1200px;
+	
+	padding:30px;
+	margin:40px auto;
+	background: #FFF;
+	
+	-moz-border-radius: 10px;
+	box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.13);
+	-moz-box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.13);
+	-webkit-box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.13);
+}
+
+.form-style-10 .inner-wrap{
+	height: 300px;
+	padding: 30px;
+	background: #F8F8F8;
+	border-radius: 6px;
+	margin-bottom: 15px;
+}
+
+.form-style-10 .inner-wrap2{
+	height: 200px;
+	padding: 30px;
+	background: #F8F8F8;
+	border-radius: 6px;
+	margin-bottom: 15px;
+}
+
+.form-style-10 h1{
+	background: #2A88AD;
+	padding: 20px 30px 15px 30px;
+	margin: -30px -30px 30px -30px;
+	border-radius: 10px 10px 0 0;
+	-webkit-border-radius: 10px 10px 0 0;
+	-moz-border-radius: 10px 10px 0 0;
+	color: #fff;
+	text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.12);
+	font: normal 30px 'Bitter', serif;
+	-moz-box-shadow: inset 0px 2px 2px 0px rgba(255, 255, 255, 0.17);
+	-webkit-box-shadow: inset 0px 2px 2px 0px rgba(255, 255, 255, 0.17);
+	box-shadow: inset 0px 2px 2px 0px rgba(255, 255, 255, 0.17);
+	border: 1px solid #257C9E;
+}
+.form-style-10 h1 > span{
+	display: block;
+	margin-top: 2px;
+	font: 13px Arial, Helvetica, sans-serif;
+}
+.form-style-10 label{
+	display: block;
+	font: 13px Arial, Helvetica, sans-serif;
+	color: #888;
+	margin-bottom: 15px;
+}
+.form-style-10 input[type="text"],
+.form-style-10 input[type="date"],
+.form-style-10 input[type="datetime"],
+.form-style-10 input[type="email"],
+.form-style-10 input[type="number"],
+.form-style-10 input[type="search"],
+.form-style-10 input[type="time"],
+.form-style-10 input[type="url"],
+.form-style-10 input[type="password"],
+.form-style-10 textarea,
+.form-style-10 select {
+	display: block;
+	box-sizing: border-box;
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	width: 100%;
+	padding: 8px;
+	border-radius: 6px;
+	-webkit-border-radius:6px;
+	-moz-border-radius:6px;
+	border: 2px solid #fff;
+	box-shadow: inset 0px 1px 1px rgba(0, 0, 0, 0.33);
+	-moz-box-shadow: inset 0px 1px 1px rgba(0, 0, 0, 0.33);
+	-webkit-box-shadow: inset 0px 1px 1px rgba(0, 0, 0, 0.33);
+}
+
+.form-style-10 .section{
+	font: normal 20px 'Bitter', serif;
+	color: #2A88AD;
+	margin-bottom: 5px;
+}
+.form-style-10 .section span {
+	background: #2A88AD;
+	padding: 5px 10px 5px 10px;
+	position: absolute;
+	border-radius: 50%;
+	-webkit-border-radius: 50%;
+	-moz-border-radius: 50%;
+	border: 4px solid #fff;
+	font-size: 14px;
+	margin-left: -45px;
+	color: #fff;
+	margin-top: -3px;
+}
+.form-style-10 input[type="button"], 
+.form-style-10 input[type="submit"]{
+	background: #2A88AD;
+	padding: 8px 20px 8px 20px;
+	border-radius: 5px;
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+	color: #fff;
+	text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.12);
+	font: normal 30px 'Bitter', serif;
+	-moz-box-shadow: inset 0px 2px 2px 0px rgba(255, 255, 255, 0.17);
+	-webkit-box-shadow: inset 0px 2px 2px 0px rgba(255, 255, 255, 0.17);
+	box-shadow: inset 0px 2px 2px 0px rgba(255, 255, 255, 0.17);
+	border: 1px solid #257C9E;
+	font-size: 15px;
+}
+.form-style-10 input[type="button"]:hover, 
+.form-style-10 input[type="submit"]:hover{
+	background: #2A6881;
+	-moz-box-shadow: inset 0px 2px 2px 0px rgba(255, 255, 255, 0.28);
+	-webkit-box-shadow: inset 0px 2px 2px 0px rgba(255, 255, 255, 0.28);
+	box-shadow: inset 0px 2px 2px 0px rgba(255, 255, 255, 0.28);
+}
+.form-style-10 .privacy-policy{
+	float: right;
+	width: 250px;
+	font: 12px Arial, Helvetica, sans-serif;
+	color: #4D4D4D;
+	margin-top: 10px;
+	text-align: right;
+}
+
+.outpic{
+margin-left:800px;
+margin-top:-120px;
+
+}
+.foot{
+
+width: 1200px;
+margin-left:-30px;
+
+
+}
+
+</style>
+<script>
+  var loadFile = function(event) {
+    var output = document.getElementById('output');
+    output.src = URL.createObjectURL(event.target.files[0]);
+  };
+</script>
+<script>
+
+function hfun(){
+var lang = $( "select#language" ).val();	
+//Prepare form data
+var formData = new FormData();
+formData.append("file",  $( '#file' )[0].files[0]);
+//formData.append("url", "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSKSuic_4_Q1JtrwUJjzAwC53Ra2DVGT3e3sPVtxTFx3FwfH-_rlw");
+formData.append("language"   , lang);
+formData.append("apikey"  , "2319f86dd888957");
+formData.append("isOverlayRequired", "True");
+
+//Send OCR Parsing request asynchronously
+
+$.ajax({
+
+url: "http://api.ocr.space/parse/image",
+data: formData,
+dataType: 'json',
+cache: false,
+contentType: false,
+processData: false,
+type: 'POST',
+mimeType: 'multipart/form-data',
+success: function (ocrParsedResult) {
+
+var parsedResults = ocrParsedResult["ParsedResults"];
+//If we have got parsed results, then loop over the results to do something
+if (parsedResults!= null) {
+//Loop through the parsed results
+$.each(parsedResults, function (index, value) {
+var exitCode = value["FileParseExitCode"];
+var parsedText = value["ParsedText"];
+var time=value["ProcessingTimeInMilliseconds"]
+var errorMessage = value["ParsedTextFileName"];
+var errorDetails = value["ErrorDetails"];
+//alert(parsedText);
+document.getElementById("p").innerHTML= parsedText;
+});
+}
+if(parsedResults== null)
+{
+alert("There has been some problem");
+	}
+}
+});
+}
+
+
+</script>
+
+<script>
+
+function nopefun(){
+var input= document.getElementById("p").innerHTML	
+//alert(input)
+var from = document.getElementById("from");
+var to = document.getElementById("to");
+var fromlang=from.options[from.selectedIndex].value;
+
+var tolang= to.options[to.selectedIndex].value;
+var lang=fromlang+'-'+tolang
+//alert(lang)
+var $textdata= $('#sad')
+//alert("yess")
+$.ajax({
+type:"GET",
+dataType: "jsonp",
+data:{
+	text: input, 
+	lang: lang,
+	},
+url: "https://translate.yandex.net/api/v1.5/tr.json/translate?key=trnsl.1.1.20170519T132258Z.03f837003b47ffb0.59a8fa6cf5bf8fc86c3992bbde3495a176fedcfd&format=html&callback=data",
+
+success:function(data){
+document.getElementById("sad").innerHTML= data.text;
+//alert (data.text);
+
+}
+
+});
+}
+
+</script>
+
+
+<body>
+    <header class="aASSS">
+        <div class="top">
+            <div class="container">
+                <div class="row">
+                    <div class="col-sm-6">
+                        <p>Convo-OCR</p>
+                    </div>
+                    <div class="col-sm-6">
+                        <ul class="list-inline pull-right">
+                            <li><a href="https://www.facebook.com/"><i class="fa fa-facebook"></i></a></li>
+                            <li><a href="https://twitter.com/login"><i class="fa fa-twitter"></i></a></li>
+                            <li><a href="http://www.linkedin.com"><i class="fa fa-linkedin"></i></a></li>
+                            <li><a href="https://login.live.com/"><i class="fa fa-envelope-o"></i></a></li>
+                            <li><a href="tel:+977-9861111083"><i class="fa fa-phone"></i> +977-9861111083</a></li>
+                        </ul>                        
+                    </div>
+                </div>
+            </div>
+        </div>
+        <nav class="navbar navbar-default">
+			<div class="container">
+				<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-navbar-collapse">
+					<span class="sr-only">Toggle Navigation</span>
+					<i class="fa fa-bars"></i>
+				</button>
+				<a href="website.html" class="navbar-brand">
+					<h1 style="color:blue;font-family:arial;font-weight:bold"><img style="img-float:left" src="img/logox.png" alt="Post">OCR-Solution</h1>
+				</a>
+                <!-- Collect the nav links, forms, and other content for toggling -->
+                <div class="collapse navbar-collapse" id="bs-navbar-collapse">
+                    <ul class="nav navbar-nav main-navbar-nav">
+                        <li class="active"><a href="website.html" title="">HOME</a></li>
+                        <li class="dropdown">
+                            <a href="#" title="" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">OPTIONS <span class="caret"></span></a>
+                            <ul class="dropdown-menu">
+                                <li><a href="text.html" title="">Extractor</a></li>
+                                <li><a href="translate.html" title="">Translator</a></li>
+                            </ul>
+                        </li>
+                        <li><a href="#" title="">PAGE</a></li>
+                        <li><a href="#" title="">CATEGORY</a></li>
+                        
+                    </ul>                           
+                </div><!-- /.navbar-collapse -->                
+	<!-- END MAIN NAVIGATION -->
+			</div>
+		</nav>        
+    </header>
+   
+   
+<div style="padding: 70px 0;background-image: url(img/a5.jpg);background-position: center center;background-repeat: no-repeat;background-size: cover;height: 475px;padding: 100,0;">
+<h1 style="text-shadow: 1px 1px 2px rgba(0,0,0,0.75);color: #FFE4C4;font-weight: 700;font-size: 42px;">Welcome..</h1>
+<h2 style="text-shadow: 1px 1px 2px rgba(0,0,0,0.25);color: #A55D35;font-weight: 700;font-size: 32px;margin-top: 0;width: 45%;line-height: 38px;">Here you can upload files of foreign language and translate it to desired understable language</h2>
+
+</div>
+    
+	<div class="form-style-10">
+	
+
+	
+     <form enctype="multipart/form-data" method="post" name="form" id="form">
+        <div class="section"><span>1</span>Upload a file</div>
+          <div class="inner-wrap">
+             <label>From the Device <input type="file" id="file" required  accept="image/gif, image/jpeg, image/png" onchange="loadFile(event)" /></label>
+              <br>
+		       <div class="outpic" style="padding:30px 0;">
+		      <img  id="output" height="270" width="250" alt="picture"/>
+			   </div>
+    </div>
+
+    <div class="section"><span>2</span>Select the language</div>
+    <div class="inner-wrap2">
+	Select the language in of the text in the image. 
+		<label>
+		  <select id="language">
+			<option value="eng">English</option>
+			<option value="chs">Chinese</option>
+			<option value="dan">Danish</option>
+			<option value="dut">Dutch</option>
+			<option value="fin">Finnish</option>
+			<option value="fre">French</option>
+			<option value="ger">German</option>
+			<option value="gre">Greek</option>
+			<option value="hun">Hungarian</option>
+			<option value="kor">Korean</option>
+			<option value="ita">Italian</option>
+			<option value="jpn">Japaneese</option>
+			<option value="nor">Norwegian</option>
+			<option value="pol">Polish</option>
+			<option value="por">Portugese</option>
+			<option value="rus">Russian</option>
+			<option value="slv">Slovenia</option> 
+			<option value="spa">Spanish</option>
+			<option value="swe">Swedish</option>
+			<option value="tur">Turkish</option>
+		  </select> 
+		  
+		</label>
+          <br>
+		  <input type="button" name="form" id="submit" value="Stash the file!" onclick="hfun()"/>
+
+		
+		
+		
+    </div>
+
+    <div class="section"><span>3</span>Get the result</div>
+        <div class="inner-wrap">
+		
+		
+		   <textarea rows="10" cols="100" id="p" > HERE  IS THE PARSED TEXT...</textarea>
+			
+    </div>
+    <div class="button-section">
+     <span class="privacy-policy">
+   
+     </span>
+
+	 </div>
+
+	<div class="section"><span>4</span>Translate</div>
+        <div class="inner-wrap">
+		SELECT THE LANGUAGE:<br>
+FROM:
+ <select id="from">
+  <option value="en">English</option>
+  <option value="zh">Chinese</option>
+  <option value="da">Danish</option>
+  <option value="nl">Dutch</option>
+  <option value="fi">Finnish</option>
+  <option value="fr">French</option>
+  <option value="de">German</option>
+  <option value="el">Greek</option>
+  <option value="hu">Hungarian</option>
+  <option value="ko">Korean</option>
+  <option value="it">Italian</option>
+  <option value="ja">Japaneese</option>
+  <option value="no">Norwegian</option>
+  <option value="pl">Polish</option>
+  <option value="pt">Portugese</option>
+  <option value="ru">Russian</option>
+  <option value="es">Spanish</option>
+  <option value="sv">Swedish</option>
+  <option value="tr">Turkish</option>
+  </select>
+TO:
+ <select id="to">
+  <option value="en">English</option>
+  <option value="zh">Chinese</option>
+  <option value="da">Danish</option>
+  <option value="nl">Dutch</option>
+  <option value="fi">Finnish</option>
+  <option value="fr">French</option>
+  <option value="de">German</option>
+  <option value="el">Greek</option>
+  <option value="hu">Hungarian</option>
+  <option value="ko">Korean</option>
+  <option value="it">Italian</option>
+  <option value="ja">Japaneese</option>
+  <option value="no">Norwegian</option>
+  <option value="pl">Polish</option>
+  <option value="pt">Portugese</option>
+  <option value="ru">Russian</option>
+  <option value="es">Spanish</option>
+		<option value="sv">Swedish</option>
+			<option value="tr">Turkish</option>
+		</select> 
+
+			<br><br> 
+		<input type="button" name="form" id="submit" value="Translate" onclick="nopefun()"/>
+		</div>
+	<div class="section"><span>5</span>Get Result</div>
+	 <div class="inner-wrap">
+		
+	 
+		<textarea rows="10" cols="30" id="sad" > </textarea>
+		</div>
+	 </div>
+	</div> 
+	 </form>
+	
+	<footer  class="site-footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-3 col-sm-6 fbox">
+                    <h4>Convo-OCR</h4>
+                    <p class="text">Our main motive is to help students who need to extract contents from photo and also foreigners who are seeking to decipher foreign sign boards </p>
+                    <ul class="list-inline">
+                        <li><a href="http://www.facebook.com"><i class="fa fa-facebook"></i></a></li>
+                        <li><a href="http://www.twitter.com"><i class="fa fa-twitter"></i></a></li>
+                        <li><a href="http://www.linkedin.com"><i class="fa fa-linkedin"></i></a></li>                        
+                    </ul>
+                </div>
+                <div class="col-md-3 col-sm-6 fbox">
+                    <h4>DISCLAIMER</h4>
+					<ul class="big">
+					<p class="text">This site is strictly for project purpose and the api's used in this site belongs strictly to the site developers and owners of the site</p>
+					</ul>
+                </div>
+                
+                <div class="col-md-3 col-sm-6 fbox">
+                    <h4>CONTENT</h4>
+                    <p class="text">To get in touch.</p>
+                    <p><a href="tel:+977-9861111083"><span class="glyphicon glyphicon-earphone" aria-hidden="true"></span> +977-9861111083</a></p>
+                    <p><a href="mailto:askanmol@outlook.com"><span class="glyphicon glyphicon-envelope" aria-hidden="true"></span> askanmol@outlook.com</a></p></div>
+            </div>
+        </div>
+        <div id="copyright">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-4">
+                        <p class="pull-left">&copy; 2017 Convo-OCR</p>
+                    </div>
+                    <div class="col-md-8">
+                        <ul class="list-inline navbar-right">
+                            <li><a href="website.html">HOME</a></li>
+                            <li><a href="text.html">TEXT-CONVO</a></li>
+                            <li><a href="translate.html">TRANSLATOR</a></li>
+                            </ul>
+                    </div>
+                </div>
+            </div>
+        </div>        
+     </footer>
+     </div>
+	 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+</body>
+</html>
